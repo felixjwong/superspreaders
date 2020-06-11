@@ -86,9 +86,3 @@ sspreader_robustness
 
 For questions or comments about this code, please reach out to felix j wong at gmail (no spaces, add domain name). 
 
-
-
-=======
-# superspreaders
-Supporting code for the paper "Extreme value statistics reveals tail risks of coronavirus superspreading"
->>>>>>> f11dd03cce001aebe9b3f7bb67fcfd074aa1af89
