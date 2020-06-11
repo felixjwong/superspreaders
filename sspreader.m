@@ -128,9 +128,46 @@ xlabel('Quantile')
 ylabel('$\hat{\xi}$','Interpreter','latex')
 box on
 
+figure(3); subplot(1,2,1)
+xi = []; xi1=[]; xi2=[];
+n = length(x);
+for k = 2:floor(n/4)
+    thispickandestimator = @(x)pickandestimator(x,k);  % Process capability
+    ci = bootci(5000,thispickandestimator,x);  
+    xi(k,:) = [k thispickandestimator(x) ci(1) ci(2)]; 
+end
+hold on;
+plot(xi(:,1)/length(x),xi(:,2))
+plot(xi(:,1)/length(x),xi(:,3))
+plot(xi(:,1)/length(x),xi(:,4))
+xlabel('Quantile')
+ylabel('$\hat{\xi}$','Interpreter','latex')
+box on
+
+
+figure(3); subplot(1,2,2)
+xi = []; xi1=[]; xi2=[];
+n = length(x);
+for k = 2:n-1
+    thisDedHestimator = @(x)DedHestimator(x,k);  % Process capability
+    ci = bootci(5000,thisDedHestimator,x);  
+    xi(k,:) = [k thisDedHestimator(x) ci(1) ci(2)]; 
+end
+hold on;
+plot(xi(:,1)/length(x),xi(:,2))
+plot(xi(:,1)/length(x),xi(:,3))
+plot(xi(:,1)/length(x),xi(:,4))
+xlabel('Quantile')
+ylabel('$\hat{\xi}$','Interpreter','latex')
+box on
+
+
+
+
 %% Fig. 2D
 xs = [1:1:600];
 nbins = 30;
+figure(2);
 
 pd = fitdist(-x,'ExtremeValue'); % Gumbel
 [h p] = chi2gof(-x,'CDF',pd)

@@ -43,7 +43,7 @@ The code in this repository allows for repeat and independent analysis of the on
 
 ### What the code contains
 
-There are a total of four files included:
+There are a total of seven files included:
 
 * sspreader.m
 <p>
@@ -60,9 +60,24 @@ This file performs the robustness check shown in Fig. 2F of the main text.
 Auxiliary script for computing the Hill estimator. 
 </p>
 
+* pickandestimator.m
+<p>
+Auxiliary script for computing the Pickands estimator. 
+</p>
+
+* DedHestimator.m
+<p>
+Auxiliary script for computing the Dekkers-Einmahl-de Haan estimator. 
+</p>
+
 * polyparci.m
 <p>
 Auxiliary script for estimating polynomial fit confidence intervals.
+</p>
+
+* frechetmodeling.m
+<p>
+Script for modeling the maxima of samples of a Fr&eacute;chet distribution.
 </p>
 
 <p>
@@ -79,6 +94,10 @@ sspreader
 All analysis results should appear. To run the robustness check after the main analysis has been executed, run in MATLAB:
 ```sh
 sspreader_robustness
+```
+To model taking the maxima of samples of a Fr&eacute;chet distribution, run in MATLAB:
+```sh
+frechetmodeling
 ```
 
 <!-- CONTACT -->
