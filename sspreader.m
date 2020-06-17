@@ -278,3 +278,4 @@ xlabel('Number of secondary cases (Z) from SSEs')
 ylabel('Frequency')
 
 x=z;
+
