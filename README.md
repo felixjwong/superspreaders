@@ -12,7 +12,7 @@
 <br />
 <p align="center">
 
-  <h3 align="center">Extreme value statistics reveals tail risks of coronavirus superspreading</h3>
+  <h3 align="center">Coronavirus superspreading is fat-tailed</h3>
 
   <p align="center">
     Supporting code for the paper
@@ -35,7 +35,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About the Code
 
-The code in this repository allows for repeat and independent analysis of the one described in the paper "Extreme value statistics reveals tail risks of coronavirus superspreading", by Wong et al. The code requires MATLAB 2019b or later to run. 
+The code in this repository allows for repeat and independent analysis of the one described in the paper "Coronavirus superspreading is fat-tailed", by Felix Wong and James J. Collins. The code requires MATLAB 2019b or later to run. 
 
 <!-- GETTING STARTED -->
 ## Running the code
@@ -95,7 +95,7 @@ All analysis results should appear. To run the robustness check after the main a
 ```sh
 sspreader_robustness
 ```
-To model taking the maxima of samples of a Fr&eacute;chet distribution, run in MATLAB:
+To model removing the tails and taking the maxima of samples of a Fr&eacute;chet distribution, run in MATLAB:
 ```sh
 frechetmodeling
 ```
