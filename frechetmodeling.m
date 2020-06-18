@@ -35,7 +35,6 @@ xlabel('Number of secondary cases (Z)')
 ylabel('Frequency')
 
 
-
 u = [1:1:100];
 ZZ = [];
 for i = 1:length(u)
