@@ -14,7 +14,7 @@ subplot(2,2,2)
 bins = 0:2:100;
 histogram(ev,bins,'Normalization','Probability')
 hold on
-histogram(evbdd,bins,'Normalization','Probability')
+%histogram(evbdd,bins,'Normalization','Probability')
 hold on
 xlim([0 100])
 plot([mean(ev) mean(ev)],[0,1])
@@ -35,22 +35,23 @@ xlabel('Number of secondary cases (Z)')
 ylabel('Frequency')
 
 
-Y = 1./wblrnd(1,1.4,1000000,1);
-s = [0:0.1:100];
-YY = [];
-for i = 1:length(s)
-    YY(i) = mean(Y(Y<s(i)));
-end
 
 u = [1:1:100];
 ZZ = [];
 for i = 1:length(u)
     maxes = [];
     for j = 1:100000
-        XX = 1./wblrnd(1,1.4,40,1);
+        XX = 1./wblrnd(1,1.42,40,1);
         maxes(j)= max(XX(XX<u(i)));
     end
     ZZ(i) = mean(maxes);
+end
+
+integrand = @(w) w.*1.42.*exp(-1./(w.^1.42))./(w.^2.42);
+thismean = @(w1) integral(integrand,0,w1);
+YY = [];
+for i = 1:length(s)
+    YY(i) = thismean(s(i));
 end
 
 figure;
@@ -61,3 +62,12 @@ yyaxis right
 plot(u,ZZ)
 ylabel('Mean number of secondary cases from SSEs')
 xlabel('Contact threshold')
+
+subplot(2,2,2)
+plot(exp(-s.^(-1.4)),YY)
+ylabel('Mean number of secondary cases')
+yyaxis right
+plot(exp(-u.^(-1.4)),ZZ)
+ylabel('Mean number of secondary cases from SSEs')
+xlabel('Z percentile')
+
