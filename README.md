@@ -117,6 +117,10 @@ This file simulates a well-mixed SEIR model and plots the resultant total infect
 Auxiliary script for generating a WS random graph with specified parameters.
 </p>
 
+<p>
+<b>Please note:</b> Dataset S3 of the paper contains more details regarding simulation parameters.
+</p>
+
 
 ### Usage
 
