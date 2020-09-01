@@ -1,46 +1,11 @@
+%% Main script for generating most figures of the main text.
+
 %% Load SSE data
-x=[10
-9
-6.5
-11
-11
-15
-11
-10
-37
-16
-51
-19
-15
-73
-17.5
-52
-78
-29
-22
-19
-17
-14
-533
-21
-19
-13
-13
-33
-112
-16
-21
-23
-23
-40
-15
-10
-8
-12
-44];
+%SSEs_scientificstudies
+%SSEs_news
+%SSEs_korea
 
-
-%% Fig. 1A
+%% Fig. not shown in main text
 R0 = 3;
 k = 0.1;
 % For negative binomial, r is k and p is (1+R0/k)^(-1)
@@ -49,11 +14,11 @@ nbinomial = nbinrnd(k,(1+R0/k)^(-1),10000,1);
 figure(1);subplot(2,2,1)
 histogram(nbinomial,'Normalization','Probability') 
 [M V]=nbinstat(k,(1+R0/k)^(-1));
-[R0 R0*(1+R0/k)]; % check mean and variance
+[R0 R0*(1+R0/k)]; % Check mean and variance
 xlabel('Number of secondary cases (Z)')
 ylabel('Predicted frequency')
 
-%% Fig. 1B
+%% Fig. not shown in main text
 R0 = 3;
 k = 0.1;
 % For negative binomial, a is k and b is R0/k
@@ -64,15 +29,15 @@ histogram(ngamma,'Normalization','Probability')
 xlabel('Individual reproductive number (v)')
 ylabel('Predicted frequency')
 
-%% Fig. 1D
+%% Fig. 1A
 figure(1); subplot(2,2,3)
-edges = [0:10:600];
+edges = [0:10:200];
 histogram(x,edges)
 xlabel('Number of secondary cases (Z) from SSEs')
 ylabel('Observed counts')
 
 
-%% Fig. 2A
+%% Fig. 1C
 zipf = [];
 for i = 1:length(x)
     F=length(find(x<x(i)))/length(x);
@@ -91,7 +56,7 @@ X = [0:0.01:3];
 hold on; plot(X,polyval(f,X))
 box on
 
-%% Fig. 2B
+%% Fig. 1D
 mep = [];
 for i = 1:length(x)
     mep(i,:) = [x(i),mean(x(x>=x(i))-x(i))];
@@ -101,23 +66,28 @@ scatter(mep(:,1),mep(:,2))
 
 X = mep(:,1);
 Y = mep(:,2);
-uthres = 10;
+% To accommodate different linear ranges of data, this is set to
+% 1 for the dataset for South Korea (SSEs_korea), and 10 for news data (SSEs_news).
+uthres = 10; 
 Y(X<uthres) = []; X(X<uthres) = [];
-Y(X==max(X)) = []; X(X==max(X)) = [];
+% To accommodate different linear ranges of data, this is set to
+% 30 for the dataset for South Korea (SSEs_korea), and 100 for news data (SSEs_news).
+uthres = 60; 
+Y(X>uthres) = []; X(X>uthres) = [];
 [f,S]=polyfit(X,Y,1);
 CI = polyparci(f,S,0.95);
 X = [0:1:200];
 hold on; plot(X,polyval(f,X))
-xlim([0 200])
-ylim([0 250])
+xlim([0 100])
+ylim([0 100])
 box on
 
-%% Fig. 2C
+%% Fig. 1E
 xi = []; xi1=[]; xi2=[];
 n = length(x);
 for k = 2:n-1
     thishillestimator = @(x)hillestimator(x,k);  % Process capability
-    ci = bootci(5000,thishillestimator,x);  
+    ci = bootci(100,thishillestimator,x);  
     xi(k,:) = [k thishillestimator(x) ci(1) ci(2)]; 
 end
 subplot(2,2,3); hold on;
@@ -128,12 +98,14 @@ xlabel('Quantile')
 ylabel('$\hat{\xi}$','Interpreter','latex')
 box on
 
+
+%% Fig. not shown: other tail estimators
 figure(3); subplot(1,2,1)
 xi = []; xi1=[]; xi2=[];
 n = length(x);
-for k = 2:floor(n/4)
+for k = 2:floor(n/4)-1
     thispickandestimator = @(x)pickandestimator(x,k);  % Process capability
-    ci = bootci(5000,thispickandestimator,x);  
+    ci = bootci(1000,thispickandestimator,x);  
     xi(k,:) = [k thispickandestimator(x) ci(1) ci(2)]; 
 end
 hold on;
@@ -143,7 +115,6 @@ plot(xi(:,1)/length(x),xi(:,4))
 xlabel('Quantile')
 ylabel('$\hat{\xi}$','Interpreter','latex')
 box on
-
 
 figure(3); subplot(1,2,2)
 xi = []; xi1=[]; xi2=[];
@@ -163,8 +134,7 @@ box on
 
 
 
-
-%% Fig. 2D
+%% Fig. 1F
 xs = [1:1:600];
 nbins = 30;
 figure(2);
@@ -180,9 +150,9 @@ set(gca, 'xscale','log')
 %histogram(x,nbins,'Normalization','Probability','FaceColor','b')
 plot(xs,evpdf(-xs,pd.mu,pd.sigma),'r','LineWidth',2)
 
-pd = fitdist(x,'Weibull'); % Weibull
-[h p] = chi2gof(x,'CDF',pd)
-[h p] = kstest(x,'CDF',pd)
+pd = fitdist(x(x>0),'Weibull'); % Weibull
+[h p] = chi2gof(x(x>0),'CDF',pd)
+[h p] = kstest(x(x>0),'CDF',pd)
 %subplot(2,2,2); hold on
 %histfit(x,10,'Weibull')
 %[~,edges] = histcounts(log10(x));
@@ -207,9 +177,10 @@ ylabel('Frequency')
 box on
 
 
-%% Fig. 2: negative binomial for comparison
+%% Fig. 1C-E: negative binomial for comparison
 z=x;
 x = nbinomial;
+x = x(x>6); % conditioned
 
 zipf = [];
 for i = 1:length(x)
@@ -245,7 +216,7 @@ plot(xi(:,1)/length(x),xi(:,2))
 %plot(xi(:,1),xi(:,4))
 
 
-%% Not shown in text: Fig. 2D - control
+%% Not shown in main text: control for Fig. 1F
 ev = [];
 for i = 1:10000
     ev(i) = max(nbinrnd(k,(1+R0/k)^(-1),1000,1));
