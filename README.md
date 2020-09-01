@@ -25,7 +25,7 @@
 ## Table of Contents
 
 * [About the Code](#about-the-code)
-* [Running the code](#running-the-code)
+* [Running the Code](#running-the-code)
   * [Data files](#data-files)
   * [Data analysis code](#data-analysis-code)
   * [Network model of transmission code](#network-model-of-transmission-code)
@@ -40,7 +40,7 @@
 The code in this repository allows for repeat and independent analysis of the one described in the paper "Evidence that coronavirus superspreading is fat-tailed", by Felix Wong and James J. Collins. The code requires MATLAB 2019b or later to run. 
 
 <!-- GETTING STARTED -->
-## Running the code
+## Running the Code
 
 ### Data files
 
