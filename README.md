@@ -24,9 +24,11 @@
 <!-- TABLE OF CONTENTS -->
 ## Table of Contents
 
-* [About the Code](#about-the-project)
+* [About the Code](#about-the-code)
 * [Running the code](#running-the-code)
-  * [What the code contains](#what-the-code-contains)
+  * [Data files](#data-files)
+  * [Data analysis code](#data-analysis-code)
+  * [Network model of transmission code](#network-model-of-transmission-code)
   * [Usage](#usage)
 * [Contact](#contact)
 
