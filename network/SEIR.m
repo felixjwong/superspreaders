@@ -21,7 +21,7 @@ dt = 1;
 tend = 500;
 
 reference_beta = beta;
-pruned_beta_ss = beta*1.5/3;
+pruned_beta_ss = beta*0.92/3;
 for t=2:tend
     beta = pruned_beta_ss; 
     S(t) = S(t-1) - (beta*I(t-1)*S(t-1))*dt*d/n;

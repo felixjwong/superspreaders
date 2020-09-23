@@ -4,7 +4,7 @@ clear all
 tic
 
 n = 1000; % Number of nodes
-ws_graph = 1; % 0 for BA, 1 for WS
+ws_graph = 0; % 0 for BA, 1 for WS
 
 A = zeros(n,n);
 m = 5;
@@ -26,12 +26,14 @@ for i = m+1:n
    end
 end
 
+correction_factor = 1;
 %% Watts-Strogatz graph
 if ws_graph
     K = 5;
     beta = 0.5;
     g = WattsStrogatz(n,K,beta);
     A = full(adjacency(g));
+    correction_factor = 2;
 end
 
 figure; hold on;
@@ -43,7 +45,7 @@ d = mean(sum(A,2));
 
 for J = 1:100
 num_infected = [];
-Pe = 0.02; % beta
+Pe = 0.009*correction_factor; % beta
 Pi = 0.2; % delta (1/5 days)
 Pr = 0.0667; % gamma
 S(1,:) = zeros(1,n);

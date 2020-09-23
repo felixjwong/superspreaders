@@ -106,12 +106,17 @@ In the folder "network", there are MATLAB scripts for reproducing the network mo
 
 * graph_model.m
 <p>
-This file is the main simulation script. It generates BA or WS random graphs and runs the simulations shown in Fig. 2E,F of the main text.
+This file is the main simulation script. It generates BA or WS random graphs and runs the simulations shown in Fig. 2B-E of the main text.
 </p>
 
 * SEIR.m
 <p>
 This file simulates a well-mixed SEIR model and plots the resultant total infected curve.
+</p>
+
+* graph_statistics.m
+<p>
+This file computes the statistics of graph models (e.g., their mean degrees after thresholding). Run this after graph_model.m has been run. 
 </p>
 
 * WattsStrogatz.m
